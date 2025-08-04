@@ -7,7 +7,7 @@ import joblib
 from ensure import ensure_annotations
 from box import ConfigBox
 from pathlib import Path
-from typing import Any
+from typing import Any, List, Dict
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
@@ -23,17 +23,28 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
     Returns:
         ConfigBox: ConfigBox type
     """
-    try:
-        with open(path_to_yaml) as yaml_file:
-            content = yaml.safe_load(yaml_file)
-            logger.info(f"yaml file: {path_to_yaml} loaded successfully")
-            return ConfigBox(content)
-    except BoxValueError:
-        raise ValueError("yaml file is empty")
-    except Exception as e:
-        raise e
-    
+    if not path_to_yaml.exists():
+        raise FileNotFoundError(f"YAML file does not exist at: {path_to_yaml}")
 
+    try:
+        with open(path_to_yaml, 'r') as yaml_file:
+            content = yaml.safe_load(yaml_file)
+            logger.info(f"Raw YAML content from {path_to_yaml!r}: {content!r} (type={type(content)})")
+
+            if content is None:
+                raise ValueError(f"YAML file is empty: {path_to_yaml}")
+
+            if not isinstance(content, dict):
+                raise ValueError(f"YAML content at {path_to_yaml} is not a mapping/dict. Got type: {type(content)}")
+
+            logger.info(f"YAML file: {path_to_yaml} loaded successfully")
+            return ConfigBox(content)
+    except BoxValueError as bve:
+        logger.error(f"BoxValueError when creating ConfigBox: {bve}")
+        raise ValueError(f"YAML content is invalid for ConfigBox: {bve}")
+    except Exception as e:
+        logger.error(f"Error loading YAML file '{path_to_yaml}': {e}")
+        raise
 
 @ensure_annotations
 def create_directories(path_to_directories: list, verbose=True):
@@ -50,7 +61,7 @@ def create_directories(path_to_directories: list, verbose=True):
 
 
 @ensure_annotations
-def save_json(path: Path, data: dict):
+def save_json(path: Path, data: dict) -> None:
     """save json data
 
     Args:
