@@ -1,3 +1,5 @@
+# This schema defines the columns and target variable for the MediWatch project dataset.
+
 COLUMNS:
   encounter_id: int64
   patient_nbr: int64
@@ -49,6 +51,6 @@ COLUMNS:
   change: object
   diabetesMed: object
 
-
-TARGET_COLUMN:
+target_column:
   name: readmitted
+  type: object
