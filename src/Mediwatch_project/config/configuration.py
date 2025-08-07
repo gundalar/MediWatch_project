@@ -3,6 +3,7 @@ from Mediwatch_project.utils.common import read_yaml, create_directories
 from Mediwatch_project.entity.config_entity import DataIngestionConfig
 from Mediwatch_project.entity.config_entity import DataValidationConfig
 from Mediwatch_project.entity.config_entity import DataTransformationConfig
+from Mediwatch_project.entity.config_entity import ModelTrainerConfig
 
 class ConfigurationManager:
    def __init__(
