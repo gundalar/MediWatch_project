@@ -69,9 +69,9 @@ class ConfigurationManager:
             train_data_path = config.train_data_path,
             test_data_path = config.test_data_path,
             model_name = config.model_name,
-            n_estimators=self.config.n_estimators,
-            max_depth=self.config.max_depth,
-            learning_rate=self.config.learning_rate,
+            n_estimators=params.n_estimators,
+            max_depth=params.max_depth,
+            learning_rate=params.learning_rate,
             target_column = schema.name 
         )
         return model_trainer_config

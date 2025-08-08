@@ -26,7 +26,7 @@ class ModelTrainerConfig:
     train_data_path: Path
     test_data_path: Path
     model_name: str
-    n_estimators: float
-    max_depth: float
+    n_estimators: int
+    max_depth: int
     learning_rate: float
     target_column: str
