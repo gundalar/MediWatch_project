@@ -7,7 +7,7 @@ import joblib
 from ensure import ensure_annotations
 from box import ConfigBox
 from pathlib import Path
-from typing import Any, List, Dict
+from typing import Any, List, Dict, Union
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
@@ -61,20 +61,15 @@ def create_directories(path_to_directories: list, verbose=True):
 
 
 @ensure_annotations
-def save_json(path: Path, data: dict) -> None:
-    """save json data
+def save_json(path: Union[str, Path], data: dict):
+    """Save json data."""
+    path = Path(path)  # Convert to Path
+    path.parent.mkdir(parents=True, exist_ok=True)
 
-    Args:
-        path (Path): path to json file
-        data (dict): data to be saved in json file
-    """
     with open(path, "w") as f:
         json.dump(data, f, indent=4)
 
     logger.info(f"json file saved at: {path}")
-
-
-
 
 @ensure_annotations
 def load_json(path: Path) -> ConfigBox:
