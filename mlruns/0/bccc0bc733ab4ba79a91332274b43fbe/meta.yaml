@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Dheer/OneDrive/Desktop/MLOps/MediWatch_project/mlruns/0/bccc0bc733ab4ba79a91332274b43fbe/artifacts
+end_time: 1754769230587
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: bccc0bc733ab4ba79a91332274b43fbe
+run_name: industrious-crow-52
+run_uuid: bccc0bc733ab4ba79a91332274b43fbe
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1754769218472
+status: 3
+tags: []
+user_id: Dheer

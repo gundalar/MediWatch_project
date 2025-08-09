@@ -1,10 +1,12 @@
 from Mediwatch_project.constants import *
 from Mediwatch_project.utils.common import read_yaml, create_directories
-from Mediwatch_project.entity.config_entity import DataIngestionConfig
-from Mediwatch_project.entity.config_entity import DataValidationConfig
-from Mediwatch_project.entity.config_entity import DataTransformationConfig
-from Mediwatch_project.entity.config_entity import ModelTrainerConfig
-from Mediwatch_project.entity.config_entity import ModelEvaluationConfig
+from Mediwatch_project.entity.config_entity import (
+    DataIngestionConfig,
+    DataValidationConfig,
+    DataTransformationConfig,
+    ModelTrainerConfig,
+    ModelEvaluationConfig,
+)
 
 class ConfigurationManager:
    def __init__(
@@ -77,7 +79,7 @@ class ConfigurationManager:
         )
         return model_trainer_config
 
-   def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
         config = self.config.model_evaluation
         params = self.params.model_params
         schema =  self.schema.TARGET_COLUMN

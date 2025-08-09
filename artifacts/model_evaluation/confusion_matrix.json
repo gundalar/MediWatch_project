@@ -1,0 +1,12 @@
+{
+  "confusion_matrix_at_best_threshold": [
+    [
+      12046,
+      6038
+    ],
+    [
+      977,
+      1292
+    ]
+  ]
+}

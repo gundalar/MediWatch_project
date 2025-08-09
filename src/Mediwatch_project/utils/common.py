@@ -59,16 +59,11 @@ def create_directories(path_to_directories: list, verbose=True):
         if verbose:
             logger.info(f"created directory at: {path}")
 
-
-def save_json(path: Any, data: dict):
-    # Inside function, convert to Path explicitly
+def save_json(path, data):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-
     with open(path, "w") as f:
-        json.dump(data, f, indent=4)
-
-    logger.info(f"JSON file saved at: {path}")
+        json.dump(data, f, indent=2)
 
 
 @ensure_annotations
