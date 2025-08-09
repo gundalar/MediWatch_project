@@ -60,16 +60,16 @@ def create_directories(path_to_directories: list, verbose=True):
             logger.info(f"created directory at: {path}")
 
 
-@ensure_annotations
-def save_json(path: Union[str, Path], data: dict):
-    """Save json data."""
-    path = Path(path)  # Convert to Path
+def save_json(path: Any, data: dict):
+    # Inside function, convert to Path explicitly
+    path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
 
     with open(path, "w") as f:
         json.dump(data, f, indent=4)
 
-    logger.info(f"json file saved at: {path}")
+    logger.info(f"JSON file saved at: {path}")
+
 
 @ensure_annotations
 def load_json(path: Path) -> ConfigBox:

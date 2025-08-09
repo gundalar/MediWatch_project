@@ -89,7 +89,7 @@ class ConfigurationManager:
             test_data_path=config.test_data_path,
             model_path = config.model_path,
             all_params=params,
-            metric_file_name = config.metric_file_name,
+            metric_file_name = Path(config.metric_file_name),
             target_column = schema.name,
             mlflow_uri="https://dagshub.com/dheeraj24797/MediWatch_project.mlflow",
         )
