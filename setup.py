@@ -7,9 +7,9 @@ with open("README.md", "r", encoding="utf-8") as f:
 __version__ = "0.0.0"
 
 REPO_NAME = "MediWatch_project"
-AUTHOR_USER_NAME = "Dheeraj Sree Sandupatla"
+AUTHOR_USER_NAME = "gundalar"
 SRC_REPO = "MediWatch_project"
-AUTHOR_EMAIL = "dheeraj.sree222@gmail.com"
+AUTHOR_EMAIL = "ramakrishna.gundala@gmail.com"
 
 setuptools.setup(
     name=SRC_REPO,

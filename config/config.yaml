@@ -2,7 +2,7 @@ artifacts_root: artifacts
 
 data_ingestion:
   root_dir: artifacts/data_ingestion
-  source_URL: https://raw.githubusercontent.com/dheeraj24797/MediWatch_project/main/diabetic_data.zip
+  source_URL: https://raw.githubusercontent.com/gundalar/MediWatch_project/main/diabetic_data.zip
   local_data_file: artifacts/data_ingestion/data.zip
   unzip_dir: artifacts/data_ingestion
 
@@ -27,4 +27,4 @@ model_evaluation:
   model_path: artifacts/model_trainer/model.joblib
   metric_file_name: artifacts/model_evaluation/metrics.json
   target_column: readmitted
-  mlflow_uri: "https://dagshub.com/dheeraj24797/MediWatch_project.mlflow"
+  mlflow_uri: "https://dagshub.com/gundalar/MediWatch_project.mlflow"
