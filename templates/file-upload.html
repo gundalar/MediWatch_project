@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Upload CSV</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+    label { display: block; margin-bottom: 8px; font-weight: 600; }
+    input[type="file"] { margin-bottom: 12px; }
+    .hint { color: #666; font-size: 0.9rem; margin-top: 6px; }
+    .error { color: #b00020; margin-top: 8px; display: none; }
+    button { padding: 10px 14px; border-radius: 8px; border: 1px solid #333; background: #111; color: #fff; cursor: pointer; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <h1>Upload Diabetic data file</h1>
+
+  <!-- Change action to your server endpoint -->
+  <form id="csvForm" class="card" action="/predict" method="POST" enctype="multipart/form-data" novalidate>
+    <label for="csvFile">Choose a CSV file</label>
+    <input
+      id="csvFile"
+      name="file"
+      type="file"
+      accept=".csv,text/csv"
+      required
+      aria-describedby="fileHint fileError"
+    />
+
+    <div id="fileHint" class="hint">Accepted format: .csv — Max size: 20 MB</div>
+    <div id="fileError" class="error" role="alert"></div>
+
+    <button id="submitBtn" type="submit" disabled>Submit</button>
+  </form>
+
+  <script>
+    (function () {
+      const input = document.getElementById('csvFile');
+      const submitBtn = document.getElementById('submitBtn');
+      const errorEl = document.getElementById('fileError');
+      const MAX_SIZE_BYTES = 20 * 1024 * 1024; // 20 MB
+
+      function validateFile(file) {
+        errorEl.style.display = 'none';
+        errorEl.textContent = '';
+
+        if (!file) {
+          submitBtn.disabled = true;
+          console.log('No file selected');
+          errorEl.textContent = 'Please select a file.';
+          return;
+        }
+
+        // Basic extension/type check
+        const nameOK = /\.csv$/i.test(file.name);
+        const typeOK = (file.type === 'text/csv' || file.type === 'application/vnd.ms-excel' || file.type === '');
+        if (!nameOK && !typeOK) {
+          errorEl.textContent = 'Please select a .csv file.';
+          errorEl.style.display = 'block';
+          submitBtn.disabled = true;
+          console.log('File type or name is not valid:', file.name, file.type);
+          return;
+        }
+
+        if (file.size > MAX_SIZE_BYTES) {
+          errorEl.textContent = 'File is larger than 20 MB.';
+          errorEl.style.display = 'block';
+          submitBtn.disabled = true;
+          console.log('File size exceeds limit:', file.size);
+          return;
+        }
+
+        submitBtn.disabled = false;
+      }
+
+      input.addEventListener('change', function () {
+        validateFile(this.files[0]);
+      });
+
+      document.getElementById('csvForm').addEventListener('submit', function (e) {
+        const file = input.files[0];
+        if (!file) {
+          e.preventDefault();
+          errorEl.textContent = 'Please choose a CSV file before submitting.';
+          errorEl.style.display = 'block';
+          return;
+        }
+        // Optional: additional checks here
+      });
+    })();
+  </script>
+</body>
+</html>
