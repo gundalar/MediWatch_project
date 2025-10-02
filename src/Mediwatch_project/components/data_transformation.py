@@ -8,6 +8,9 @@ class DataTransformation:
     def __init__(self, config: DataTransformationConfig):
         self.config = config
 
+    def new_method(self):   
+        pass
+
     def train_test_spliting(self):
         df = pd.read_csv(self.config.data_path)
 
@@ -78,6 +81,7 @@ class DataTransformation:
         cols_to_drop = ['encounter_id', 'patient_nbr', 'payer_code', 'weight', 'medical_specialty',
                         'max_glu_serum', 'A1Cresult', 'examide', 'citoglipton',
                         'diag_1', 'diag_2', 'diag_3']
+        self.dropped_data = df[cols_to_drop]  # Store dropped columns if needed later
         df = df.drop(columns=cols_to_drop, errors='ignore')
 
         df['gender'] = df['gender'].astype('category')
@@ -107,3 +111,10 @@ class DataTransformation:
 
         print("Train shape:", train.shape)
         print("Test shape:", test.shape)
+        
+    def attach_dropped_data(self, df_results: pd.DataFrame):
+        """Attach back the dropped columns to results"""
+        if self.dropped_data is not None:
+            df_results = df_results.copy()
+            df_results[self.dropped_data.columns] = self.dropped_data.reset_index(drop=True)
+        return df_results

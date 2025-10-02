@@ -6,8 +6,8 @@ from pathlib import Path
 STAGE_NAME = "Data Transformation stage"
 
 class DataTransformationTrainingPipeline:
-    def __init__(self):
-        pass
+    def __init__(self, transformer : DataTransformation):
+        self.transformer = transformer
 
     def main(self):
         try:
@@ -17,11 +17,12 @@ class DataTransformationTrainingPipeline:
             if status == "True":
                 config = ConfigurationManager()
                 data_transformation_config = config.get_data_transformation_config()
-                data_transformation = DataTransformation(config=data_transformation_config)
-                data_transformation.train_test_spliting()
+                self.transformer = DataTransformation(config=data_transformation_config)
+                print("Data Transformation Started..setting datatransfromer object to self.transformer" + str(self.transformer))    
+                self.transformer.train_test_spliting()
 
             else:
-                raise Exception("You data schema is not valid")
+                raise Exception("Your data schema is not valid")
 
         except Exception as e:
             print(e)
