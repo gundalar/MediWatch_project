@@ -6,6 +6,4 @@ RUN pip install -r requirements.txt
 
 RUN pip install .
 
-ser
-
 CMD [ "python3", "app.py" ]
