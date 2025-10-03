@@ -79,7 +79,7 @@ def index_something():
             results = dataTransformationTrainingPipeline.transformer.attach_dropped_data(pd.DataFrame(data))
             print(f"Data Sample: {str(results.head(5))}")
             # Get 10 random unique row indices
-            RESULES_SIZE = 100
+            RESULES_SIZE = 50
             indices = np.random.choice(data.shape[0], size=RESULES_SIZE, replace=False)
             patient_nbrs = results['patient_nbr'][indices] # First column as names
             print(f"Patient Numbers: {str(patient_nbrs)}")
